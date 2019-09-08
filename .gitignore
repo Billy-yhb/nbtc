@@ -1,0 +1,5 @@
+nbtc.jar
+libnbtc.so
+java-bin/*
+.vscode/*
+.git/*
