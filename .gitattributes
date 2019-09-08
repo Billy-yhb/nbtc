@@ -1,3 +1,4 @@
 *.h linguist-language=c
 *.c linguist-language=c
+c/nbt.h linguist-language=c
 *.java linguist-language=java
