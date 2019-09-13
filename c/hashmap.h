@@ -1,5 +1,8 @@
 #ifndef INCLUDE_HASHMAP__
 #define INCLUDE_HASHMAP__
+#ifdef __cplusplus
+extern "C"{
+#endif
 #define HashMap(K,V) HashMap
 typedef struct HashMap HashMap;
 HashMap *HashMap_new(int (*key_hash_func)(const void *), int (*key_equals_func)(const void *a,const void *b),
@@ -13,5 +16,8 @@ void **HashMap_keys(HashMap *map,int *count);
 HashMap *HashMap_copy(HashMap *map);
 int HashMap_size(HashMap *map);
 void HashMap_destroy(HashMap *map);
+#ifdef __cplusplus
+}
+#endif
 #endif
 

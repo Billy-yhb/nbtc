@@ -8,6 +8,6 @@ C Standard = gnu11
 Java Standard >= 11  
 require zlib
 ### Runtime
-C Standard >= c99  
+C Standard >= c89  
 Java Standard >= 11  
 require zlib

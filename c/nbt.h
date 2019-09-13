@@ -34,10 +34,10 @@ typedef enum TAGTYPE{
     TAG_LONGARRAY=12
 }NBTTagType;
 typedef enum NBTErr{
-	NBT_NOERR,//无错  no error
-	NBT_IOERR,//输入输出错误  IO error
-	NBT_ILLEGAL,//传入的NBT对象错误，例如List含有不同类型  wrong NBT data eg. diffent tag type in a list
-	NBT_NULLPTR//接受空指针  get a NULL pointer
+	NBT_NOERR,/*无错  no error*/
+	NBT_IOERR,/*输入输出错误  IO error*/
+	NBT_ILLEGAL,/*传入的NBT对象错误，例如List含有不同类型  wrong NBT data eg. diffent tag type in a list*/
+	NBT_NULLPTR/*接受空指针  get a NULL pointer*/
 }NBTErr;
 typedef struct bytet_t TagByte;
 typedef struct shortt_t TagShort;
@@ -54,7 +54,7 @@ typedef struct lonarrt_t TagLongArray;
 
 typedef struct NBTBaseInterface{
 	NBTTagType nbtType;
-	void (*toNBT)(const void *,NBTTag *,struct NBTBaseInterface *,va_list options);//actually there is no const here
+	void (*toNBT)(const void *,NBTTag *,struct NBTBaseInterface *,va_list options);/*actually there is no const here*/
 	void (*fromNBT)(void *,const NBTTag *,struct NBTBaseInterface *,va_list options);
 }NBTBaseInterface;
 /*NBT_serialize(long long uuid_in[2],TagCompound *tag,NBT_BASE_UUID);
@@ -340,8 +340,8 @@ NBTTag *NBT_scan(FILE *stream);
 NBTErr NBT_getLastError();
 void NBT_getErrorDetail(char *str,int len);
 
-#ifdef __STDC_VERSION__
-#if __STDC_VERSION__ >= 201112 /*C11 only*/
+void *__n_class_cast_to_type(void *obj,int type);
+#if __STDC_VERSION__ && __STDC_VERSION__ >= 201112 /*C11 only*/
 #define __n_class_cast_to_tag(obj) ((NBTTag *)_Generic((obj),NBTTag *:obj,\
 		TagByte *:obj,\
 		TagShort *:obj,\
@@ -355,9 +355,52 @@ void NBT_getErrorDetail(char *str,int len);
 		TagCompound *:obj,\
 		TagIntArray *:obj,\
 		TagLongArray *:obj))
-void *__n_class_cast_to_type(void *obj,int type);
 #define __n_class_cast_to_(obj,type,tid) (_Generic((obj),NBTTag*:(type *)__n_class_cast_to_type((obj),tid),type *:(obj)))
 #define NBT(obj) __n_class_cast_to_tag(obj)
+#else /*C11 condition*/
+/*Always use pointer because struct is incorrect*/
+struct NBTTag {
+	char nbt_cast_most[4];
+};
+struct bytet_t {
+	char nbt_cast_most[5];
+};
+struct shortt_t {
+	char nbt_cast_most[6];
+};
+struct intt_t {
+	char nbt_cast_most[7];
+};
+struct longt_t {
+	char nbt_cast_most[8];
+};
+struct floatt_t {
+	char nbt_cast_most[9];
+};
+struct doublet_t {
+	char nbt_cast_most[10];
+};
+struct bytarrt_t {
+	char nbt_cast_most[11];
+};
+struct strt_t {
+	char nbt_cast_most[12];
+};
+struct listt_t {
+	char nbt_cast_most[13];
+};
+struct compoundt_t {
+	char nbt_cast_most[14];
+};
+struct intarrt_t {
+	char nbt_cast_most[15];
+};
+struct lonarrt_t {
+	char nbt_cast_most[16];
+};
+#define __n_class_cast_to_(obj,type,tid) ((type *)(((sizeof((obj)->nbt_cast_most)-4)==tid ? (obj) : __n_class_cast_to_type((obj),tid))))
+#define NBT(obj) ((NBTTag *)(sizeof((obj)->nbt_cast_most) ? (obj) : NULL))
+#endif /*C11 condition*/
 #define NBT_BYTE(obj) __n_class_cast_to_(obj,TagByte,1)
 #define NBT_SHORT(obj) __n_class_cast_to_(obj,TagShort,2)
 #define NBT_INT(obj) __n_class_cast_to_(obj,TagInt,3)
@@ -381,8 +424,6 @@ void *__n_class_cast_to_type(void *obj,int type);
 #define NBT_print(obj,stream) NBT_print(NBT(obj),stream)
 #define NBT_printJSON(obj,stream) NBT_printJSON(NBT(obj),stream)
 #endif /*_NBT_C_BODY*/
-#endif /*C11 condition*/
-#endif
 
 TagCompound *NBT_readFromFile(char *path);
 NBTErr NBT_writeToFile(TagCompound *cpd,char *path);
