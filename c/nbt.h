@@ -3,8 +3,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #ifdef __cplusplus
-/*There is some problem in Cpp, so I use this to stop cpp*/
-#error "The nbtc library is a c library (standard>=c11 for type-safety cast) and does not support c++"
+extern "C"{
 #endif
 #include "hashmap.h"
 /*
@@ -93,81 +92,81 @@ NBTTag *NBT_allocTagByInterface(NBTBaseInterface *interface);
 TagByte *NBT_createByteTag(const char *name,byte b);
 /* 判断一个NBT节点是否为TAG_BYTE类型
  * Judge if the tag is byte*/
-int NBT_isByte(NBTTag *tag);
+int NBT_isByte(const NBTTag *tag);
 /* 返回所保存的b值
  * Return the storged b*/
-byte NBT_getByte(TagByte *tag);
+byte NBT_getByte(const TagByte *tag);
 /* 设置保存的b
  * Set b*/
 void NBT_setByte(TagByte *tag,byte b);
 /* 将tag以二进制形式存储(不含标签名和ID)
  * Serialize a tag to stream as NBT binary format (excude the name and the type)*/
-NBTErr NBT_writeByte(TagByte *tag,FILE *stream);
+NBTErr NBT_writeByte(const TagByte *tag,FILE *stream);
 /* 从二进制流中读取一个TAG_BYTE数据(不含标签名和ID)
  * Deserialize from binary stream to a tag (excude the name and the type)*/
 TagByte *NBT_readByte(const char *name,FILE *stream);
 /* 复制一个TAG_BYTE
  * Copy a byte tag*/
-TagByte *NBT_copyByte(TagByte *tag);
+TagByte *NBT_copyByte(const TagByte *tag);
 /* 释放这个TAG_BYTE占用的资源
  * Release this byte tag*/
 void NBT_destroyByte(TagByte *tag);
 
 
 TagShort *NBT_createShortTag(const char *name,short s);
-int NBT_isShort(NBTTag *tag);
-short NBT_getShort(TagShort *tag);
+int NBT_isShort(const NBTTag *tag);
+short NBT_getShort(const TagShort *tag);
 void NBT_setShort(TagShort *tag,short s);
-NBTErr NBT_writeShort(TagShort *tag,FILE *stream);
+NBTErr NBT_writeShort(const TagShort *tag,FILE *stream);
 TagShort *NBT_readShort(const char *name,FILE *stream);
-TagShort *NBT_copyShort(TagShort *tag);
+TagShort *NBT_copyShort(const TagShort *tag);
 void NBT_destroyShort(TagShort *tag);
 
 
 TagInt *NBT_createIntTag(const char *name,int i);
-int NBT_isInt(NBTTag *tag);
-int NBT_getInt(TagInt *tag);
+int NBT_isInt(const NBTTag *tag);
+int NBT_getInt(const TagInt *tag);
 void NBT_setInt(TagInt *tag,int i);
-NBTErr NBT_writeInt(TagInt *tag,FILE *stream);
+NBTErr NBT_writeInt(const TagInt *tag,FILE *stream);
 TagInt *NBT_readInt(const char *name,FILE *stream);
-TagInt *NBT_copyInt(TagInt *tag);
+TagInt *NBT_copyInt(const TagInt *tag);
 void NBT_destroyInt(TagInt *tag);
 
 
 TagLong *NBT_createLongTag(const char *name,long long l);
-int NBT_isLong(NBTTag *tag);
-long long NBT_getLong(TagLong *tag);
+int NBT_isLong(const NBTTag *tag);
+long long NBT_getLong(const TagLong *tag);
 void NBT_setLong(TagLong *tag,long long l);
-NBTErr NBT_writeLong(TagLong *tag,FILE *stream);
+NBTErr NBT_writeLong(const TagLong *tag,FILE *stream);
 TagLong *NBT_readLong(const char *name,FILE *stream);
-TagLong *NBT_copyLong(TagLong *tag);
+TagLong *NBT_copyLong(const TagLong *tag);
 void NBT_destroyLong(TagLong *tag);
 
 
 TagFloat *NBT_createFloatTag(const char *name,float f);
-int NBT_isFloat(NBTTag *tag);
-float NBT_getFloat(TagFloat *tag);
+int NBT_isFloat(const NBTTag *tag);
+float NBT_getFloat(const TagFloat *tag);
 void NBT_setFloat(TagFloat *tag,float f);
-NBTErr NBT_writeFloat(TagFloat *tag,FILE *stream);
+NBTErr NBT_writeFloat(const TagFloat *tag,FILE *stream);
 TagFloat *NBT_readFloat(const char *name,FILE *stream);
-TagFloat *NBT_copyFloat(TagFloat *tag);
+TagFloat *NBT_copyFloat(const TagFloat *tag);
 void NBT_destroyFloat(TagFloat *tag);
 
 
 TagDouble *NBT_createDoubleTag(const char *name,double d);
-int NBT_isDouble(NBTTag *tag);
-double NBT_getDouble(TagDouble *tag);
+int NBT_isDouble(const NBTTag *tag);
+double NBT_getDouble(const TagDouble *tag);
 void NBT_setDouble(TagDouble *tag,double d);
-NBTErr NBT_writeDouble(TagDouble *tag,FILE *stream);
+NBTErr NBT_writeDouble(const TagDouble *tag,FILE *stream);
 TagDouble *NBT_readDouble(const char *name,FILE *stream);
-TagDouble *NBT_copyDouble(TagDouble *tag);
+TagDouble *NBT_copyDouble(const TagDouble *tag);
 void NBT_destroyDouble(TagDouble *tag);
 
 
 /* 创建一个count长度的byte数组(array)
  * Create a byte array tag from the array pointer and the length is count*/
 TagByteArray *NBT_createByteArrayTag(const char *name,int count,const byte *array);
-int NBT_isByteArray(NBTTag *tag);
+int NBT_isByteArray(const NBTTag *tag);
 /* 获取整个byte数组(需自行free)
  * 参数:
  *     count  返回实际的byte数组长度
@@ -177,49 +176,50 @@ int NBT_isByteArray(NBTTag *tag);
  * 		The length of the array will be set to the *count
  * 		The byte array will return
  * */
-byte *NBT_getByteArray(TagByteArray *tag,int *count);
+byte *NBT_getByteArray(const TagByteArray *tag,int *count);
 void NBT_setByteArray(TagByteArray *tag,int count,const byte *array);
-byte NBT_getByteArrayIndex(TagByteArray *tag,int index);
-int NBT_getByteArraySize(TagByteArray *tag);
-NBTErr NBT_writeByteArray(TagByteArray *tag,FILE *stream);
+byte NBT_getByteArrayIndex(const TagByteArray *tag,int index);
+int NBT_getByteArraySize(const TagByteArray *tag);
+NBTErr NBT_writeByteArray(const TagByteArray *tag,FILE *stream);
 TagByteArray *NBT_readByteArray(const char *name,FILE *stream);
-TagByteArray *NBT_copyByteArray(TagByteArray *tag);
+TagByteArray *NBT_copyByteArray(const TagByteArray *tag);
 void NBT_destroyByteArray(TagByteArray *tag);
 
 
 TagString *NBT_createStringTag(const char *name,const char *value);
-int NBT_isString(NBTTag *tag);
-char *NBT_getString(TagString *tag,int *count);
+int NBT_isString(const NBTTag *tag);
+char *NBT_getString(const TagString *tag,int *count);
 void NBT_setString(TagString *tag,const char *str);
-int NBT_getStringSize(TagString *tag);
-NBTErr NBT_writeString(TagString *tag,FILE *stream);
+int NBT_getStringSize(const TagString *tag);
+NBTErr NBT_writeString(const TagString *tag,FILE *stream);
 TagString *NBT_readString(const char *name,FILE *stream);
-TagString *NBT_copyString(TagString *tag);
+TagString *NBT_copyString(const TagString *tag);
 void NBT_destroyString(TagString *tag);
 
 
 /* 创建一个count长度的List,元素必须为相同类型
  * Create a list tag, all the elements must be same type*/
 TagList *NBT_createListTag(const char *name,int count,NBTTag **array);
-int NBT_isList(NBTTag *tag);
-NBTTag **NBT_getList(TagList *tag,int *count);
+int NBT_isList(const NBTTag *tag);
+NBTTag **NBT_getList(const TagList *tag,int *count);
 void NBT_setList(TagList *tag,int count,NBTTag **array);
-NBTTag *NBT_getListIndex(TagList *tag,int index);
-int NBT_getListSize(TagList *tag);
-NBTTagType NBT_getListType(TagList *tag);
-NBTErr NBT_writeList(TagList *tag,FILE *stream);
+NBTTag *NBT_getListIndex(const TagList *tag,int index);
+int NBT_getListSize(const TagList *tag);
+NBTTagType NBT_getListType(const TagList *tag);
+NBTErr NBT_writeList(const TagList *tag,FILE *stream);
 TagList *NBT_readList(const char *name,FILE *stream);
-TagList *NBT_copyList(TagList *tag);
+TagList *NBT_copyList(const TagList *tag);
 void NBT_destroyList(TagList *tag);
 
 
 /* 创建一个size长度的Compound,元素必须无重名
  * Create a compound tag with size elements and all the element must have different name*/
 TagCompound *NBT_createCompoundTag(const char *name,int size,NBTTag **array);
-int NBT_isCompound(NBTTag *tag);
-HashMap(char *,TAG *) *NBT_getCompound(TagCompound *tag);
+int NBT_isCompound(const NBTTag *tag);
+HashMap(char *,TAG *) *NBT_getCompound(const TagCompound *tag);
 void NBT_setCompound(TagCompound *tag,HashMap(char *,TAG *) *map);
-NBTTag *NBT_getCompoundIndex(TagCompound *tag,const char *index);
+NBTTag *NBT_getCompoundIndex(const TagCompound *tag,const char *index);
+NBTTag *NBT_getCompoundIndexNonCopy(const TagCompound *tag,const char *index);
 void NBT_setCompoundIndex(TagCompound *tag,NBTTag *ele);
 void NBT_removeCompoundIndex(TagCompound *tag,const char *index);
 void NBT_setCompoundByte(TagCompound *tag,const char *index,byte value);
@@ -234,46 +234,46 @@ void NBT_vsetCompoundInterface(TagCompound *tag,const char *index,void *object,N
 /* 若无法取到值，则返回fallback,字符串返回复制后的值
  * If failed to get the value, fallback will be returned but if fallback is a string (const char *),
  * 		copied value will be returned*/
-byte NBT_getCompoundByte(TagCompound *tag,const char *index,byte fallback);
-short NBT_getCompoundShort(TagCompound *tag,const char *index,short fallback);
-int NBT_getCompoundInt(TagCompound *tag,const char *index,int fallback);
-long long NBT_getCompoundLong(TagCompound *tag,const char *index,long long fallback);
-float NBT_getCompoundFloat(TagCompound *tag,const char *index,float fallback);
-double NBT_getCompoundDouble(TagCompound *tag,const char *index,double fallback);
-char *NBT_getCompoundString(TagCompound *tag,const char *index,int *count,const char *fallback);
-void NBT_getCompoundInterface(TagCompound *tag,const char *index,void *object,NBTBaseInterface *interface,...);
-void NBT_vgetCompoundInterface(TagCompound *tag,const char *index,void *object,NBTBaseInterface *interface,va_list options);
+byte NBT_getCompoundByte(const TagCompound *tag,const char *index,byte fallback);
+short NBT_getCompoundShort(const TagCompound *tag,const char *index,short fallback);
+int NBT_getCompoundInt(const TagCompound *tag,const char *index,int fallback);
+long long NBT_getCompoundLong(const TagCompound *tag,const char *index,long long fallback);
+float NBT_getCompoundFloat(const TagCompound *tag,const char *index,float fallback);
+double NBT_getCompoundDouble(const TagCompound *tag,const char *index,double fallback);
+char *NBT_getCompoundString(const TagCompound *tag,const char *index,int *count,const char *fallback);
+void NBT_getCompoundInterface(const TagCompound *tag,const char *index,void *object,NBTBaseInterface *interface,...);
+void NBT_vgetCompoundInterface(const TagCompound *tag,const char *index,void *object,NBTBaseInterface *interface,va_list options);
 void NBT_clearCompoundMap(TagCompound *tag);
-int NBT_getCompoundSize(TagCompound *tag);
-char **NBT_getCompoundKeys(TagCompound *tag,int *count);
-NBTTagType NBT_getCompoundIndexType(TagCompound *tag,const char *index);
-NBTErr NBT_writeCompound(TagCompound *tag,FILE *stream);
+int NBT_getCompoundSize(const TagCompound *tag);
+char **NBT_getCompoundKeys(const TagCompound *tag,int *count);
+NBTTagType NBT_getCompoundIndexType(const TagCompound *tag,const char *index);
+NBTErr NBT_writeCompound(const TagCompound *tag,FILE *stream);
 TagCompound *NBT_readCompound(const char *name,FILE *stream);
-TagCompound *NBT_copyCompound(TagCompound *tag);
+TagCompound *NBT_copyCompound(const TagCompound *tag);
 void NBT_destroyCompound(TagCompound *tag);
 
 
 TagIntArray *NBT_createIntArrayTag(const char *name,int size,const int *array);
-int NBT_isIntArrayTag(NBTTag *tag);
-int *NBT_getIntArray(TagIntArray *tag,int *count);
+int NBT_isIntArrayTag(const NBTTag *tag);
+int *NBT_getIntArray(const TagIntArray *tag,int *count);
 void NBT_setIntArray(TagIntArray *tag,int count,const int *array);
-int NBT_getIntArrayIndex(TagIntArray *tag,int index);
-int NBT_getIntArraySize(TagIntArray *tag);
-NBTErr NBT_writeIntArray(TagIntArray *tag,FILE *stream);
+int NBT_getIntArrayIndex(const TagIntArray *tag,int index);
+int NBT_getIntArraySize(const TagIntArray *tag);
+NBTErr NBT_writeIntArray(const TagIntArray *tag,FILE *stream);
 TagIntArray *NBT_readIntArray(const char *name,FILE *stream);
-TagIntArray *NBT_copyIntArray(TagIntArray *tag);
+TagIntArray *NBT_copyIntArray(const TagIntArray *tag);
 void NBT_destroyIntArray(TagIntArray *tag);
 
 
 TagLongArray *NBT_createLongArrayTag(const char *name,int size,const long long *array);
-int NBT_isLongArray(NBTTag *tag);
-long long *NBT_getLongArray(TagLongArray *tag,int *count);
+int NBT_isLongArray(const NBTTag *tag);
+long long *NBT_getLongArray(const TagLongArray *tag,int *count);
 void NBT_setLongArray(TagLongArray *tag,int count,const long long *array);
-long long NBT_getLongArrayIndex(TagLongArray *tag,int index);
-int NBT_getLongArraySize(TagLongArray *tag);
-NBTErr NBT_writeLongArray(TagLongArray *tag,FILE *stream);
+long long NBT_getLongArrayIndex(const TagLongArray *tag,int index);
+int NBT_getLongArraySize(const TagLongArray *tag);
+NBTErr NBT_writeLongArray(const TagLongArray *tag,FILE *stream);
 TagLongArray *NBT_readLongArray(const char *name,FILE *stream);
-TagLongArray *NBT_copyLongArray(TagLongArray *tag);
+TagLongArray *NBT_copyLongArray(const TagLongArray *tag);
 void NBT_destroyLongArray(TagLongArray *tag);
 
 
@@ -283,16 +283,16 @@ void NBT_destroyLongArray(TagLongArray *tag);
  * Generic functions*/
 /* 判断标签类型
  * Get the type of the tag*/
-NBTTagType NBT_getType(NBTTag *tag);
+NBTTagType NBT_getType(const NBTTag *tag);
 /* 写入标签,包括ID名称和辅助信息
  * Serialize tag with name, type and other things*/
-NBTErr NBT_write(NBTTag *tag,FILE *stream);
+NBTErr NBT_write(const NBTTag *tag,FILE *stream);
 /* 写入标签,仅辅助信息
  * Serialize tag without name and type*/
-NBTErr NBT_writeBody(NBTTag *tag,FILE *stream);
+NBTErr NBT_writeBody(const NBTTag *tag,FILE *stream);
 /* 写入标签,仅名称和ID
  * Serialize the name and the type of the tag*/
-NBTErr NBT_writeHead(NBTTag *tag,FILE *stream);
+NBTErr NBT_writeHead(const NBTTag *tag,FILE *stream);
 /* 读入标签,包括ID名称和辅助信息
  * Deserialize the whole tag*/
 NBTTag *NBT_read(FILE *stream);
@@ -307,7 +307,7 @@ char *NBT_readHead(NBTTagType *typep,FILE *stream);
 NBTTag *NBT_copy(NBTTag *tag);
 /* 获取标签名
  * Get the name (free() by yourself)*/
-char *NBT_getName(NBTTag *tag);
+char *NBT_getName(const NBTTag *tag);
 /* 设置标签名
  * Set the name*/
 void NBT_setName(NBTTag *tag,const char *name);
@@ -328,10 +328,10 @@ void NBT_releaseArray(NBTTag **tags,int count);
  * 		In order to fix this issue, I put an "L" after the int list, same as
  * 			what I did in nbtc java library so you can serialize a tag in
  * 			java and deserialize it in c if you use nbtc library*/
-void NBT_print(NBTTag *tag,FILE *stream);
+void NBT_print(const NBTTag *tag,FILE *stream);
 /* 弄成JSON格式字符串
  * Print the JSON-Style String*/
-void NBT_printJSON(NBTTag *tag,FILE *stream);
+void NBT_printJSON(const NBTTag *tag,FILE *stream);
 /* 从NBT读入
  * Read from stream as NBT-Style String*/
 NBTTag *NBT_scan(FILE *stream);
@@ -340,22 +340,36 @@ NBTTag *NBT_scan(FILE *stream);
 NBTErr NBT_getLastError();
 void NBT_getErrorDetail(char *str,int len);
 
-void *__n_class_cast_to_type(void *obj,int type);
+#ifndef __cplusplus
+void *__n_class_cast_to_type(const void *obj,int type);
 #if __STDC_VERSION__ && __STDC_VERSION__ >= 201112 /*C11 only*/
-#define __n_class_cast_to_tag(obj) ((NBTTag *)_Generic((obj),NBTTag *:obj,\
-		TagByte *:obj,\
-		TagShort *:obj,\
-		TagInt *:obj,\
-		TagLong *:obj,\
-		TagFloat *:obj,\
-		TagDouble *:obj,\
-		TagByteArray *:obj,\
-		TagString *:obj,\
-		TagList *:obj,\
-		TagCompound *:obj,\
-		TagIntArray *:obj,\
-		TagLongArray *:obj))
-#define __n_class_cast_to_(obj,type,tid) (_Generic((obj),NBTTag*:(type *)__n_class_cast_to_type((obj),tid),type *:(obj)))
+#define __n_class_cast_to_tag(obj) (_Generic((obj),NBTTag *:obj,\
+		TagByte *:(NBTTag *)obj,\
+		TagShort *:(NBTTag *)obj,\
+		TagInt *:(NBTTag *)obj,\
+		TagLong *:(NBTTag *)obj,\
+		TagFloat *:(NBTTag *)obj,\
+		TagDouble *:(NBTTag *)obj,\
+		TagByteArray *:(NBTTag *)obj,\
+		TagString *:(NBTTag *)obj,\
+		TagList *:(NBTTag *)obj,\
+		TagCompound *:(NBTTag *)obj,\
+		TagIntArray *:(NBTTag *)obj,\
+		TagLongArray *:(NBTTag *)obj,\
+		const NBTTag *:obj,\
+		const TagByte *:(const NBTTag *)obj,\
+		const TagShort *:(const NBTTag *)obj,\
+		const TagInt *:(const NBTTag *)obj,\
+		const TagLong *:(const NBTTag *)obj,\
+		const TagFloat *:(const NBTTag *)obj,\
+		const TagDouble *:(const NBTTag *)obj,\
+		const TagByteArray *:(const NBTTag *)obj,\
+		const TagString *:(const NBTTag *)obj,\
+		const TagList *:(const NBTTag *)obj,\
+		const TagCompound *:(const NBTTag *)obj,\
+		const TagIntArray *:(const NBTTag *)obj,\
+		const TagLongArray *:(const NBTTag *)obj))
+#define __n_class_cast_to_(obj,type,tid) (_Generic((obj),NBTTag*:(type *)__n_class_cast_to_type((obj),tid),type *:(obj),const NBTTag*:(const type *)__n_class_cast_to_type((obj),tid),const type *:(obj)))
 #define NBT(obj) __n_class_cast_to_tag(obj)
 #else /*C11 condition*/
 /*Always use pointer because struct is incorrect*/
@@ -420,11 +434,17 @@ struct lonarrt_t {
 #define NBT_writeHead(obj,stream) NBT_writeHead(NBT(obj),stream)
 #define NBT_copy(obj) ((typeof(obj))NBT_copy(NBT(obj)))
 #define NBT_getName(obj) NBT_getName(NBT(obj))
+#define NBT_setName(obj,name) NBT_setName(NBT(obj),name)
 #define NBT_destroy(obj) NBT_destroy(NBT(obj))
 #define NBT_print(obj,stream) NBT_print(NBT(obj),stream)
 #define NBT_printJSON(obj,stream) NBT_printJSON(NBT(obj),stream)
+#define NBT_setCompoundIndex(obj,ele) NBT_setCompoundIndex(obj,NBT(ele))
 #endif /*_NBT_C_BODY*/
+#endif /*__cplusplus*/ /*No type-safety cast for cpp. c++不支持类型安全的强制类型转换*/
 
 TagCompound *NBT_readFromFile(char *path);
-NBTErr NBT_writeToFile(TagCompound *cpd,char *path);
+NBTErr NBT_writeToFile(const TagCompound *cpd,char *path);
+#ifdef __cplusplus
+}
+#endif
 #endif

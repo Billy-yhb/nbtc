@@ -3,3 +3,4 @@ libnbtc.so
 java-bin/*
 .vscode/*
 .git/*
+test

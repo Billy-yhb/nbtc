@@ -149,17 +149,17 @@ TagByte *NBT_createByteTag(const char *name,byte bt){
     b->b=bt;
     return b;
 }
-int NBT_isByte(NBTTag *tag){
+int NBT_isByte(const NBTTag *tag){
     nonnull(tag,0,"NBT_isByte(): tag must not be null.");
     return tag->type==1;
 }
-byte NBT_getByte(TagByte *tag){
+byte NBT_getByte(const TagByte *tag){
     return tag->b;
 }
 void NBT_setByte(TagByte *tag,byte b){
     tag->b=b;
 }
-NBTErr NBT_writeByte(TagByte *tag,FILE *stream){
+NBTErr NBT_writeByte(const TagByte *tag,FILE *stream){
     nonnull(stream,NBT_NULLPTR,"NBT_writeByte(): stream nust not be null.");
     byte b=tag->b;
     return DNwrite(b,stream);
@@ -174,7 +174,7 @@ TagByte *NBT_readByte(const char *name,FILE *stream){
     }
     return NBT_createByteTag(name,b);
 }
-TagByte *NBT_copyByte(TagByte *tag){
+TagByte *NBT_copyByte(const TagByte *tag){
     return NBT_createByteTag(tag->name,tag->b);
 }
 void NBT_destroyByte(TagByte *tag){
@@ -195,17 +195,17 @@ TagShort *NBT_createShortTag(const char *name,short s){
     r->s=s;
     return r;
 }
-int NBT_isShort(NBTTag *tag){
+int NBT_isShort(const NBTTag *tag){
     nonnull(tag,0,"NBT_isShort(): tag must not be null.");
     return tag->type==2;
 }
-short NBT_getShort(TagShort *tag){
+short NBT_getShort(const TagShort *tag){
     return tag->s;
 }
 void NBT_setShort(TagShort *tag,short s){
     tag->s=s;
 }
-NBTErr NBT_writeShort(TagShort *tag,FILE *stream){
+NBTErr NBT_writeShort(const TagShort *tag,FILE *stream){
     nonnull(stream,NBT_NULLPTR,"NBT_writeShort(): stream must not be null.");
     short b=tag->s;
     return DNwrite(b,stream);
@@ -217,7 +217,7 @@ TagShort *NBT_readShort(const char *name,FILE *stream){
     DNread(b,stream);
     return NBT_createShortTag(name,b);
 }
-TagShort *NBT_copyShort(TagShort *tag){
+TagShort *NBT_copyShort(const TagShort *tag){
     return NBT_createShortTag(tag->name,tag->s);
 }
 void NBT_destroyShort(TagShort *tag){
@@ -237,17 +237,17 @@ TagInt *NBT_createIntTag(const char *name,int i){
     r->i=i;
     return r;
 }
-int NBT_isInt(NBTTag *tag){
+int NBT_isInt(const NBTTag *tag){
     nonnull(tag,0,"NBT_isInt(): tag must not be null.");
     return tag->type==3;
 }
-int NBT_getInt(TagInt *tag){
+int NBT_getInt(const TagInt *tag){
     return tag->i;
 }
 void NBT_setInt(TagInt *tag,int i){
     tag->i=i;
 }
-NBTErr NBT_writeInt(TagInt *tag,FILE *stream){
+NBTErr NBT_writeInt(const TagInt *tag,FILE *stream){
     nonnull(stream,NBT_NULLPTR,"NBT_writeInt(): stream must not be null.");
     int i=tag->i;
     return DNwrite(i,stream);
@@ -262,7 +262,7 @@ TagInt *NBT_readInt(const char *name,FILE *stream){
     }
     return NBT_createIntTag(name,i);
 }
-TagInt *NBT_copyInt(TagInt *tag){
+TagInt *NBT_copyInt(const TagInt *tag){
     return NBT_createIntTag(tag->name,tag->i);
 }
 void NBT_destroyInt(TagInt *tag){
@@ -282,17 +282,17 @@ TagLong *NBT_createLongTag(const char *name,long long l){
     r->l=l;
     return r;
 }
-int NBT_isLong(NBTTag *tag){
+int NBT_isLong(const NBTTag *tag){
     nonnull(tag,0,"NBT_isLong(): tag must not be null.");
     return tag->type==4;
 }
-long long NBT_getLong(TagLong *tag){
+long long NBT_getLong(const TagLong *tag){
     return tag->l;
 }
 void NBT_setLong(TagLong *tag,long long l){
     tag->l=l;
 }
-NBTErr NBT_writeLong(TagLong *tag,FILE *stream){
+NBTErr NBT_writeLong(const TagLong *tag,FILE *stream){
     nonnull(stream,NBT_NULLPTR,"NBT_writeLong(): tag must not be null.");
     long long l=tag->l;
     return DNwrite(l,stream);
@@ -307,7 +307,7 @@ TagLong *NBT_readLong(const char *name,FILE *stream){
     }
     return NBT_createLongTag(name,l);
 }
-TagLong *NBT_copyLong(TagLong *tag){
+TagLong *NBT_copyLong(const TagLong *tag){
     return NBT_createLongTag(tag->name,tag->l);
 }
 void NBT_destroyLong(TagLong *tag){
@@ -327,17 +327,17 @@ TagFloat *NBT_createFloatTag(const char *name,float f){
     r->f=f;
     return r;
 }
-int NBT_isFloat(NBTTag *tag){
+int NBT_isFloat(const NBTTag *tag){
     nonnull(tag,0,"NBT_isFloat(): tag must not be null.");
     return tag->type==5;
 }
-float NBT_getFloat(TagFloat *tag){
+float NBT_getFloat(const TagFloat *tag){
     return tag->f;
 }
 void NBT_setFloat(TagFloat *tag,float f){
     tag->f=f;
 }
-NBTErr NBT_writeFloat(TagFloat *tag,FILE *stream){
+NBTErr NBT_writeFloat(const TagFloat *tag,FILE *stream){
     nonnull(stream,NBT_NULLPTR,"NBT_writeFloat(): stream must not be null.");
     float f=tag->f;
     return DNwrite(f,stream);
@@ -352,7 +352,7 @@ TagFloat *NBT_readFloat(const char *name,FILE *stream){
     }
     return NBT_createFloatTag(name,f);
 }
-TagFloat *NBT_copyFloat(TagFloat *tag){
+TagFloat *NBT_copyFloat(const TagFloat *tag){
     return NBT_createFloatTag(tag->name,tag->f);
 }
 void NBT_destroyFloat(TagFloat *tag){
@@ -371,17 +371,17 @@ TagDouble *NBT_createDoubleTag(const char *name,double d){
     r->d=d;
     return r;
 }
-int NBT_isDouble(NBTTag *tag){
+int NBT_isDouble(const NBTTag *tag){
     nonnull(tag,0,"NBT_isDouble(): tag must notbe null.");
     return tag->type==6;
 }
-double NBT_getDouble(TagDouble *tag){
+double NBT_getDouble(const TagDouble *tag){
     return tag->d;
 }
 void NBT_setDouble(TagDouble *tag,double d){
     tag->d=d;
 }
-NBTErr NBT_writeDouble(TagDouble *tag,FILE *stream){
+NBTErr NBT_writeDouble(const TagDouble *tag,FILE *stream){
     nonnull(stream,NBT_NULLPTR,"NBT_writeDouble(): stream must not be null.");
     double d=tag->d;
     return DNwrite(d,stream);
@@ -396,7 +396,7 @@ TagDouble *NBT_readDouble(const char *name,FILE *stream){
     }
     return NBT_createDoubleTag(name,d);
 }
-TagDouble *NBT_copyDouble(TagDouble *tag){
+TagDouble *NBT_copyDouble(const TagDouble *tag){
     return NBT_createDoubleTag(tag->name,tag->d);
 }
 void NBT_destroyDouble(TagDouble *tag){
@@ -425,11 +425,11 @@ TagByteArray *NBT_createByteArrayTag(const char *name,int count,const byte *arra
     }
     return r;
 }
-int NBT_isByteArray(NBTTag *tag){
+int NBT_isByteArray(const NBTTag *tag){
     nonnull(tag,0,"NBT_isByteArray(): tag must not be null.");
     return tag->type==7;
 }
-byte *NBT_getByteArray(TagByteArray *tag,int *count){
+byte *NBT_getByteArray(const TagByteArray *tag,int *count){
     if(tag->size){
         *count=tag->size;
         return copymem(tag->arr,sizeof(byte)*tag->size);
@@ -448,17 +448,17 @@ void NBT_setByteArray(TagByteArray *tag,int count,const byte *array){
     }
     tag->size=count;
 }
-byte NBT_getByteArrayIndex(TagByteArray *tag,int index){
+byte NBT_getByteArrayIndex(const TagByteArray *tag,int index){
     if(index>tag->size){
     	fprintf(stderr,"NBT_getByteArrayIndex(): the index %d is larger than the size %d.\n",index,tag->size);
         crash();
     }
     return tag->arr[index];
 }
-int NBT_getByteArraySize(TagByteArray *tag){
+int NBT_getByteArraySize(const TagByteArray *tag){
     return tag->size;
 }
-NBTErr NBT_writeByteArray(TagByteArray *tag,FILE *stream){
+NBTErr NBT_writeByteArray(const TagByteArray *tag,FILE *stream){
     nonnull(stream,NBT_NULLPTR,"NBT_writeByteArray(): stream must not be null.");
     int size=tag->size;
     byte *arr=tag->arr;
@@ -499,7 +499,7 @@ TagByteArray *NBT_readByteArray(const char *name,FILE *stream){
     tag->arr=buf;
     return tag;
 }
-TagByteArray *NBT_copyByteArray(TagByteArray *tag){
+TagByteArray *NBT_copyByteArray(const TagByteArray *tag){
     TagByteArray *t=(TagByteArray *)tag;
     return NBT_createByteArrayTag(t->name,t->size,t->arr);
 }
@@ -531,11 +531,11 @@ TagString *NBT_createStringTag(const char *name,const char *val){
     tag->str=copystr(val);
     return tag;
 }
-int NBT_isString(NBTTag *tag){
+int NBT_isString(const NBTTag *tag){
     nonnull(tag,0,"NBT_isString(): tag must not be null.");
     return tag->type==8;
 }
-char *NBT_getString(TagString *tag,int *count){
+char *NBT_getString(const TagString *tag,int *count){
     *count=tag->len;
     return copystr(tag->str);
 }
@@ -544,10 +544,10 @@ void NBT_setString(TagString *tag,const char *str){
     free(tag->str);
     tag->str=copystr(str);
 }
-int NBT_getStringSize(TagString *tag){
+int NBT_getStringSize(const TagString *tag){
     return tag->len;
 }
-NBTErr NBT_writeString(TagString *tag,FILE *stream){
+NBTErr NBT_writeString(const TagString *tag,FILE *stream){
     return DSwrite(tag->str,stream);
 }
 TagString *NBT_readString(const char *name,FILE *stream){
@@ -565,7 +565,7 @@ TagString *NBT_readString(const char *name,FILE *stream){
     tag->str=n;
     return tag;
 }
-TagString *NBT_copyString(TagString *tag){
+TagString *NBT_copyString(const TagString *tag){
     TagString *r=nalloc(TagString);
     r->name=copystr(tag->name);
     r->type=8;
@@ -616,11 +616,11 @@ TagList *NBT_createListTag(const char *name,int count,NBTTag **array){
     }
     return tag;
 }
-int NBT_isList(NBTTag *tag){
+int NBT_isList(const NBTTag *tag){
     nonnull(tag,0,"NBT_isList(): tag must not be null.");
     return tag->type==9;
 }
-NBTTag **NBT_getList(TagList *tag,int *count){
+NBTTag **NBT_getList(const TagList *tag,int *count){
     if(tag->size>0){
         NBTTag **r=malloc(sizeof(NBTTag *)*tag->size);
         for(int i=0;i<tag->size;i++){
@@ -652,20 +652,20 @@ void NBT_setList(TagList *tag,int count,NBTTag **array){
         tag->list_type=0;
     }
 }
-NBTTag *NBT_getListIndex(TagList *tag,int index){
+NBTTag *NBT_getListIndex(const TagList *tag,int index){
     if(index>tag->size){
     	fprintf(stderr,"NBT_getListIndex(): the index %d is larger than the size %d.\n",index,tag->size);
         crash();
     }
     return NBT_copy(tag->arr[index]);
 }
-int NBT_getListSize(TagList *tag){
+int NBT_getListSize(const TagList *tag){
     return tag->size;
 }
-NBTTagType NBT_getListType(TagList *tag){
+NBTTagType NBT_getListType(const TagList *tag){
     return tag->list_type;
 }
-NBTErr NBT_writeList(TagList *tag,FILE *stream){
+NBTErr NBT_writeList(const TagList *tag,FILE *stream){
     nonnull(stream,NBT_NULLPTR,"NBT_writeList(): stream must not be null.");
     byte list_type=tag->list_type;
     NBTErr err=DNwrite(list_type,stream);
@@ -712,7 +712,7 @@ TagList *NBT_readList(const char *name,FILE *stream){
     tag->arr=buf;
     return tag;
 }
-TagList *NBT_copyList(TagList *tag){
+TagList *NBT_copyList(const TagList *tag){
     return NBT_createListTag(tag->name,tag->size,tag->arr);
 }
 void NBT_destroyList(TagList *tag){
@@ -750,11 +750,11 @@ TagCompound *NBT_createCompoundTag(const char *name,int size,NBTTag **array){
     tag->size=size;
     return tag;
 }
-int NBT_isCompound(NBTTag *tag){
+int NBT_isCompound(const NBTTag *tag){
     nonnull(tag,0,"NBT_isCompound(): tag must not be null.");
     return tag->type==10;
 }
-HashMap *NBT_getCompound(TagCompound *tag){
+HashMap *NBT_getCompound(const TagCompound *tag){
     return HashMap_copy(tag->map);
 }
 void NBT_setCompound(TagCompound *tag,HashMap *map){
@@ -762,8 +762,11 @@ void NBT_setCompound(TagCompound *tag,HashMap *map){
     tag->map=HashMap_copy(map);
     tag->size=HashMap_size(map);
 }
-NBTTag *NBT_getCompoundIndex(TagCompound *tag,const char *index){
+NBTTag *NBT_getCompoundIndex(const TagCompound *tag,const char *index){
     return HashMap_get(tag->map,index);
+}
+NBTTag *NBT_getCompoundIndexNonCopy(const TagCompound *tag,const char *index){
+    return HashMap_getNonCopy(tag->map,index);
 }
 void NBT_setCompoundIndex(TagCompound *tag,NBTTag *ele){
     HashMap_put(tag->map,ele->name,ele);
@@ -822,62 +825,50 @@ void NBT_vsetCompoundInterface(TagCompound *tag,const char *index,void *object,N
     NBT_destroy(tag_obj);
 }
 /*若无法取到值，则返回fallback,字符串返回复制后的值*/
-byte NBT_getCompoundByte(TagCompound *tag,const char *index,byte fallback){
-    NBTTag *rval=HashMap_get(tag->map,index);
+byte NBT_getCompoundByte(const TagCompound *tag,const char *index,byte fallback){
+    NBTTag *rval=HashMap_getNonCopy(tag->map,index);
     if(NBT_BYTE(rval)){
         fallback=NBT_getByte((TagByte *)rval);
     }
-    if(rval)
-        NBT_destroy(rval);
     return fallback;
 }
-short NBT_getCompoundShort(TagCompound *tag,const char *index,short fallback){
-    NBTTag *rval=HashMap_get(tag->map,index);
+short NBT_getCompoundShort(const TagCompound *tag,const char *index,short fallback){
+    NBTTag *rval=HashMap_getNonCopy(tag->map,index);
     if(NBT_SHORT(rval)){
         fallback=NBT_getShort((TagShort *)rval);
     }
-    if(rval)
-        NBT_destroy(rval);
     return fallback;
 }
-int NBT_getCompoundInt(TagCompound *tag,const char *index,int fallback){
-    NBTTag *rval=HashMap_get(tag->map,index);
+int NBT_getCompoundInt(const TagCompound *tag,const char *index,int fallback){
+    NBTTag *rval=HashMap_getNonCopy(tag->map,index);
     if(NBT_INT(rval)){
         fallback=NBT_getInt((TagInt *)rval);
     }
-    if(rval)
-        NBT_destroy(rval);
     return fallback;
 }
-long long NBT_getCompoundLong(TagCompound *tag,const char *index,long long fallback){
-    NBTTag *rval=HashMap_get(tag->map,index);
+long long NBT_getCompoundLong(const TagCompound *tag,const char *index,long long fallback){
+    NBTTag *rval=HashMap_getNonCopy(tag->map,index);
     if(NBT_LONG(rval)){
         fallback=NBT_getLong((TagLong *)rval);
     }
-    if(rval)
-        NBT_destroy(rval);
     return fallback;
 }
-float NBT_getCompoundFloat(TagCompound *tag,const char *index,float fallback){
-    NBTTag *rval=HashMap_get(tag->map,index);
+float NBT_getCompoundFloat(const TagCompound *tag,const char *index,float fallback){
+    NBTTag *rval=HashMap_getNonCopy(tag->map,index);
     if(NBT_FLOAT(rval)){
         fallback=NBT_getFloat((TagFloat *)rval);
     }
-    if(rval)
-        NBT_destroy(rval);
     return fallback;
 }
-double NBT_getCompoundDouble(TagCompound *tag,const char *index,double fallback){
-    NBTTag *rval=HashMap_get(tag->map,index);
+double NBT_getCompoundDouble(const TagCompound *tag,const char *index,double fallback){
+    NBTTag *rval=HashMap_getNonCopy(tag->map,index);
     if(NBT_DOUBLE(rval)){
         fallback=NBT_getDouble((TagDouble *)rval);
     }
-    if(rval)
-        NBT_destroy(rval);
     return fallback;
 }
-char *NBT_getCompoundString(TagCompound *tag,const char *index,int *count,const char *fallback){
-    NBTTag *rval=HashMap_get(tag->map,index);
+char *NBT_getCompoundString(const TagCompound *tag,const char *index,int *count,const char *fallback){
+    NBTTag *rval=HashMap_getNonCopy(tag->map,index);
     if(NBT_STRING(rval)){
         fallback=NBT_getString((TagString *)rval,count);
     }else{
@@ -887,22 +878,19 @@ char *NBT_getCompoundString(TagCompound *tag,const char *index,int *count,const 
         if(fallback)
             fallback=copystr(fallback);
     }
-    if(rval)
-        NBT_destroy(rval);
     return (char *)fallback;
 }
-void NBT_getCompoundInterface(TagCompound *tag,const char *index,void *object,NBTBaseInterface *interface,...){
+void NBT_getCompoundInterface(const TagCompound *tag,const char *index,void *object,NBTBaseInterface *interface,...){
     va_list ap;
     va_start(ap,interface);
     NBT_vgetCompoundInterface(tag,index,object,interface,ap);
     va_end(ap);
 }
-void NBT_vgetCompoundInterface(TagCompound *tag,const char *index,void *object,NBTBaseInterface *interface,va_list options){
-    NBTTag *obj_tag=NBT_getCompoundIndex(tag,index);
+void NBT_vgetCompoundInterface(const TagCompound *tag,const char *index,void *object,NBTBaseInterface *interface,va_list options){
+    NBTTag *obj_tag=NBT_getCompoundIndexNonCopy(tag,index);
     if(obj_tag->type==interface->nbtType){
         NBT_vdeserialize(object,obj_tag,interface,options);
     }
-    NBT_destroy(obj_tag);
 }
 void NBT_clearCompoundMap(TagCompound *tag){
     HashMap_destroy(tag->map);
@@ -911,13 +899,13 @@ void NBT_clearCompoundMap(TagCompound *tag){
             (void *(*)(const void *))NBT_copy,(void (*)(void *))NBT_destroy);
     tag->size=0;
 }
-int NBT_getCompoundSize(TagCompound *tag){
+int NBT_getCompoundSize(const TagCompound *tag){
     return tag->size;
 }
-char **NBT_getCompoundKeys(TagCompound *tag,int *count){
+char **NBT_getCompoundKeys(const TagCompound *tag,int *count){
     return (char **)HashMap_keys(tag->map,count);
 }
-NBTTagType NBT_getCompoundIndexType(TagCompound *tag,const char *index){
+NBTTagType NBT_getCompoundIndexType(const TagCompound *tag,const char *index){
     NBTTag *t=HashMap_get(tag->map,index);
     if(!t){
         return TAG_END;
@@ -926,7 +914,7 @@ NBTTagType NBT_getCompoundIndexType(TagCompound *tag,const char *index){
     NBT_destroy(t);
     return r;
 }
-NBTErr NBT_writeCompound(TagCompound *tag,FILE *stream){
+NBTErr NBT_writeCompound(const TagCompound *tag,FILE *stream){
     nonnull(stream,NBT_NULLPTR,"NBT_writeCompound(): stream must not be null.");
     HashMap *map=tag->map;
     int count;
@@ -974,7 +962,7 @@ TagCompound *NBT_readCompound(const char *name,FILE *stream){
     tag->map=map;
     return tag;
 }
-TagCompound *NBT_copyCompound(TagCompound *tag){
+TagCompound *NBT_copyCompound(const TagCompound *tag){
     TagCompound *r=nalloc(TagCompound);
     r->name=copystr(tag->name);
     r->type=10;
@@ -1009,11 +997,11 @@ TagIntArray *NBT_createIntArrayTag(const char *name,int count,const int *array){
     }
     return r;
 }
-int NBT_isIntArray(NBTTag *tag){
+int NBT_isIntArray(const NBTTag *tag){
     nonnull(tag,0,"NBT_isIntArray(): tag must not be null.");
     return tag->type==11;
 }
-int *NBT_getIntArray(TagIntArray *tag,int *count){
+int *NBT_getIntArray(const TagIntArray *tag,int *count){
     if(tag->size){
         *count=tag->size;
         return copymem(tag->arr,sizeof(int)*tag->size);
@@ -1032,17 +1020,17 @@ void NBT_setIntArray(TagIntArray *tag,int count,const int *array){
     }
     tag->size=count;
 }
-int NBT_getIntArrayIndex(TagIntArray *tag,int index){
+int NBT_getIntArrayIndex(const TagIntArray *tag,int index){
     if(index>tag->size){
     	fprintf(stderr,"NBT_getIntArrayIndex(): the index %d is larger than the size %d.",index,tag->size);
         crash();
     }
     return tag->arr[index];
 }
-int NBT_getIntArraySize(TagIntArray *tag){
+int NBT_getIntArraySize(const TagIntArray *tag){
     return tag->size;
 }
-NBTErr NBT_writeIntArray(TagIntArray *tag,FILE *stream){
+NBTErr NBT_writeIntArray(const TagIntArray *tag,FILE *stream){
     nonnull(stream,NBT_NULLPTR,"NBT_writeIntArray(): stream must not be null.");
     int size=tag->size;
     int *arr=tag->arr;
@@ -1083,7 +1071,7 @@ TagIntArray *NBT_readIntArray(const char *name,FILE *stream){
     tag->arr=buf;
     return tag;
 }
-TagIntArray *NBT_copyIntArray(TagIntArray *tag){
+TagIntArray *NBT_copyIntArray(const TagIntArray *tag){
     return NBT_createIntArrayTag(tag->name,tag->size,tag->arr);
 }
 void NBT_destroyIntArray(TagIntArray *tag){
@@ -1115,11 +1103,11 @@ TagLongArray *NBT_createLongArrayTag(const char *name,int count,const long long 
     }
     return r;
 }
-int NBT_isLongArray(NBTTag *tag){
+int NBT_isLongArray(const NBTTag *tag){
     nonnull(tag,0,"NBT_isLongArray(): tag must not be null.");
     return tag->type==12;
 }
-long long *NBT_getLongArray(TagLongArray *tag,int *count){
+long long *NBT_getLongArray(const TagLongArray *tag,int *count){
     if(tag->size){
         *count=tag->size;
         return copymem(tag->arr,sizeof(long long)*tag->size);
@@ -1138,17 +1126,17 @@ void NBT_setLongArray(TagLongArray *tag,int count,const long long *array){
     }
     tag->size=count;
 }
-long long NBT_getLongArrayIndex(TagLongArray *tag,int index){
+long long NBT_getLongArrayIndex(const TagLongArray *tag,int index){
     if(index>tag->size){
     	fprintf(stderr,"NBT_getLongArrayIndex(): the index %d is larger than the size %d.",index,tag->size);
         crash();
     }
     return tag->arr[index];
 }
-int NBT_getLongArraySize(TagLongArray *tag){
+int NBT_getLongArraySize(const TagLongArray *tag){
     return tag->size;
 }
-NBTErr NBT_writeLongArray(TagLongArray *tag,FILE *stream){
+NBTErr NBT_writeLongArray(const TagLongArray *tag,FILE *stream){
     nonnull(stream,NBT_NULLPTR,"NBT_writeLongArray(): stream must not be null.");
     int size=tag->size;
     long long *arr=tag->arr;
@@ -1188,7 +1176,7 @@ TagLongArray *NBT_readLongArray(const char *name,FILE *stream){
     tag->arr=buf;
     return tag;
 }
-TagLongArray *NBT_copyLongArray(TagLongArray *tag){
+TagLongArray *NBT_copyLongArray(const TagLongArray *tag){
     return NBT_createLongArrayTag(tag->name,tag->size,tag->arr);
 }
 void NBT_destroyLongArray(TagLongArray *tag){
@@ -1199,11 +1187,11 @@ void NBT_destroyLongArray(TagLongArray *tag){
     free(tag);
 }
 
-NBTTagType NBT_getType(NBTTag *tag){
+NBTTagType NBT_getType(const NBTTag *tag){
     nonnull(tag,TAG_END,"NBT_getType(): tag must not be null.");
     return tag->type;
 }
-NBTErr NBT_write(NBTTag *tag,FILE *stream){
+NBTErr NBT_write(const NBTTag *tag,FILE *stream){
     if(tag){
         NBTErr err=NBT_writeHead(tag,stream);
         return err ? err:NBT_writeBody(tag,stream);
@@ -1211,7 +1199,7 @@ NBTErr NBT_write(NBTTag *tag,FILE *stream){
         return DNwrite((byte)0,stream);
     }
 }
-NBTErr NBT_writeHead(NBTTag *tag,FILE *stream){
+NBTErr NBT_writeHead(const NBTTag *tag,FILE *stream){
     if(tag==NULL){
         return DNwrite((byte)0,stream);
     }else{
@@ -1219,7 +1207,7 @@ NBTErr NBT_writeHead(NBTTag *tag,FILE *stream){
         return err ? err:DSwrite(tag->name,stream);
     }
 }
-NBTErr NBT_writeBody(NBTTag *tag,FILE *stream){
+NBTErr NBT_writeBody(const NBTTag *tag,FILE *stream){
 #define tp(id,name) case id:\
     return NBT_write##name((void *)tag,stream);\
     break
@@ -1304,7 +1292,7 @@ NBTTag *NBT_copy(NBTTag *tag){
     }
 #undef tp
 }
-char *NBT_getName(NBTTag *tag){
+char *NBT_getName(const NBTTag *tag){
     if(tag==NULL){
         return NULL;
     }else{
@@ -1340,19 +1328,19 @@ void NBT_releaseArray(NBTTag **tags,int count){
 	}
 	free(tags);
 }
-void *__n_class_cast_to_type(void *obj,int type){
+void *__n_class_cast_to_type(const void *obj,int type){
 	if(!obj){
 		return NULL;
 	}
-	if(((NBTTag *)obj)->type==type){
-		return obj;
+	if(((const NBTTag *)obj)->type==type){
+		return (void *)obj;
 	}else{
 		return NULL;
 	}
 }
-static void printJSONStr(FILE *stream,char *c,int len){
+static void printJSONStr(FILE *stream,const char *c){
     fputc('"',stream);
-    for(int i=0;i<len;i++){
+    for(int i=0;c[i];i++){
         char o=c[i];
         switch(o){
             case '\n':
@@ -1382,24 +1370,38 @@ static void printJSONStr(FILE *stream,char *c,int len){
     }
     fputc('"',stream);
 }
-static void printStr(FILE *stream,char *c,int len){
-    if(len==0){
+static void printStr(FILE *stream,const char *c){
+    if(!(*c)){
         fprintf(stream,"\"\"");
         return;
     }
-    for(int i=0;i<len;i++){
+    for(int i=0;c[i];i++){
         int o=c[i];
         if(!((o>='a'&&o<='z')||(o>='A'&&o<='Z')||(o>='0'&&o<='9'))){
-            printJSONStr(stream,c,len);
+            printJSONStr(stream,c);
             return;
         }
     }
     if(c[0]>='0'&&c[0]<='9'){
-        printJSONStr(stream,c,len);
+        printJSONStr(stream,c);
         return;
     }else{
         fprintf(stream,"%s",c);
     }
+}
+static void printKeyStr(FILE *stream,const char *c){
+    if(!(*c)){
+        fprintf(stream,"\"\"");
+        return;
+    }
+    for(int i=0;c[i];i++){
+        int o=c[i];
+        if(!((o>='a'&&o<='z')||(o>='A'&&o<='Z')||(o>='0'&&o<='9'))){
+            printJSONStr(stream,c);
+            return;
+        }
+    }
+    fprintf(stream,"%s",c);
 }
 static void printTab(FILE *stream,int deep){
     for(int i=0;i<deep;i++){
@@ -1470,10 +1472,12 @@ static void printFloat(FILE *stream,float d){
     out[lasteff+1]=0;
     fprintf(stream,"%s",out);
 }
-static void NBT_print_(NBTTag *tag,FILE *stream,int deep){
+static void printNbtText(const NBTTag *tag,FILE *stream,int deep){
     int len,type,needl;
-    char *c,**keys;
-    struct compoundt_t *cpd;
+    char *c;
+    const struct compoundt_t *cpd;
+    HashMapLoc it;
+    HashMapEntry entry;
     switch(tag->type){
         case TAG_BYTE:
             fprintf(stream,"%db",(int)(((struct bytet_t *)tag)->b));
@@ -1513,8 +1517,7 @@ static void NBT_print_(NBTTag *tag,FILE *stream,int deep){
             break;
         case TAG_STRING:
             c=NBT_STRING(tag)->str;
-            len=NBT_STRING(tag)->len;
-            printStr(stream,c,len);
+            printStr(stream,c);
             break;
         case TAG_LIST:
             type=NBT_LIST(tag)->list_type;
@@ -1527,7 +1530,7 @@ static void NBT_print_(NBTTag *tag,FILE *stream,int deep){
             }else{
                 for(int i=0;i<len-1;i++){
                     NBTTag *b=NBT_getListIndex(NBT_LIST(tag),i);
-                    NBT_print_(b,stream,deep+1);
+                    printNbtText(b,stream,deep+1);
                     if((!(needl||type==TAG_SHORT||type==TAG_FLOAT||type==TAG_DOUBLE))||(i+1)%8==0){
                         fprintf(stream,",\n");
                         printTab(stream,deep+1);
@@ -1537,7 +1540,7 @@ static void NBT_print_(NBTTag *tag,FILE *stream,int deep){
                     NBT_destroy(b);
                 }
                 NBTTag *n=NBT_getListIndex(NBT_LIST(tag),len-1);
-                NBT_print_(n,stream,deep+1);
+                printNbtText(n,stream,deep+1);
                 NBT_destroy(n);
             }
             printf("\n");
@@ -1551,22 +1554,20 @@ static void NBT_print_(NBTTag *tag,FILE *stream,int deep){
         case TAG_COMPOUND:
             fprintf(stream,"{");
             cpd=NBT_COMPOUND(tag);
-            keys=NBT_getCompoundKeys(cpd,&len);
             fprintf(stream,"\n");
-            for(int i=0;i<len;i++){
-                NBTTag *b=NBT_getCompoundIndex(cpd,keys[i]);
+            it=HashMap_iterator(cpd->map);
+            len=cpd->size;
+            while(it.hasNext){
+                entry=HashMap_next(&it);
                 printTab(stream,deep+1);
-                printStr(stream,keys[i],strlen(keys[i]));
+                printKeyStr(stream,entry.key);
                 printf(": ");
-                NBT_print_(b,stream,deep+1);
-                NBT_destroy(b);
-                if(i<len-1)
+                printNbtText(entry.value,stream,deep+1);
+                if(it.hasNext)
                     printf(",\n");
                 else
                     printf("\n");
-                free(keys[i]);
             }
-            free(keys);
             printTab(stream,deep);
             fprintf(stream,"}");
             break;
@@ -1608,13 +1609,15 @@ static void NBT_print_(NBTTag *tag,FILE *stream,int deep){
             break;
     }
 }
-void NBT_print(NBTTag *tag,FILE *stream){
-    NBT_print_(tag,stream,0);
+void NBT_print(const NBTTag *tag,FILE *stream){
+    printNbtText(tag,stream,0);
 }
-static void NBT_printJSON_(NBTTag *tag,FILE *stream,int deep){
+static void printNbtJSON(const NBTTag *tag,FILE *stream,int deep){
     int len,type,needl;
-    char *c,**keys;
-    struct compoundt_t *cpd;
+    char *c;
+    const struct compoundt_t *cpd;
+    HashMapEntry entry;
+    HashMapLoc it;
     switch(tag->type){
         case TAG_BYTE:
             fprintf(stream,"%d",(int)(((struct bytet_t *)tag)->b));
@@ -1653,8 +1656,7 @@ static void NBT_printJSON_(NBTTag *tag,FILE *stream,int deep){
             break;
         case TAG_STRING:
             c=NBT_STRING(tag)->str;
-            len=NBT_STRING(tag)->len;
-            printJSONStr(stream,c,len);
+            printJSONStr(stream,c);
             break;
         case TAG_LIST:
             type=NBT_LIST(tag)->list_type;
@@ -1668,7 +1670,7 @@ static void NBT_printJSON_(NBTTag *tag,FILE *stream,int deep){
                 printTab(stream,deep+1);
                 for(int i=0;i<len-1;i++){
                     NBTTag *b=NBT_getListIndex(NBT_LIST(tag),i);
-                    NBT_printJSON_(b,stream,deep+1);
+                    printNbtJSON(b,stream,deep+1);
                     if((!(needl||type==TAG_SHORT||type==TAG_FLOAT||type==TAG_DOUBLE))||(i+1)%8==0){
                         fprintf(stream,",\n");
                         printTab(stream,deep+1);
@@ -1678,7 +1680,7 @@ static void NBT_printJSON_(NBTTag *tag,FILE *stream,int deep){
                     NBT_destroy(b);
                 }
                 NBTTag *n=NBT_getListIndex(NBT_LIST(tag),len-1);
-                NBT_printJSON_(n,stream,deep+1);
+                printNbtJSON(n,stream,deep+1);
                 NBT_destroy(n);
             }
             printf("\n");
@@ -1688,26 +1690,24 @@ static void NBT_printJSON_(NBTTag *tag,FILE *stream,int deep){
         case TAG_COMPOUND:
             fprintf(stream,"{");
             cpd=NBT_COMPOUND(tag);
-            keys=NBT_getCompoundKeys(cpd,&len);
+            len=cpd->size;
             if(len==0){
                 fprintf(stream,"}");
                 return;
             }
             fprintf(stream,"\n");
-            for(int i=0;i<len;i++){
-                NBTTag *b=NBT_getCompoundIndex(cpd,keys[i]);
+            it=HashMap_iterator(cpd->map);
+            while(it.hasNext){
+                entry=HashMap_next(&it);
                 printTab(stream,deep+1);
-                printJSONStr(stream,keys[i],strlen(keys[i]));
+                printJSONStr(stream,entry.key);
                 printf(": ");
-                NBT_printJSON_(b,stream,deep+1);
-                NBT_destroy(b);
-                if(i<len-1)
+                printNbtJSON(entry.value,stream,deep+1);
+                if(it.hasNext)
                     printf(",\n");
                 else
                     printf("\n");
-                free(keys[i]);
             }
-            free(keys);
             printTab(stream,deep);
             fprintf(stream,"}");
             break;
@@ -1749,8 +1749,8 @@ static void NBT_printJSON_(NBTTag *tag,FILE *stream,int deep){
             break;
     }
 }
-void NBT_printJSON(NBTTag *tag,FILE *stream){
-    NBT_printJSON_(tag,stream,0);
+void NBT_printJSON(const NBTTag *tag,FILE *stream){
+    printNbtJSON(tag,stream,0);
 }
 NBTErr NBT_getLastError(){
     return lasterr;
@@ -1796,7 +1796,7 @@ TagCompound *NBT_readFromFile(char *path){
 	ArrayList_delete(list);
 	return cpd;
 }
-NBTErr NBT_writeToFile(TagCompound *cpd,char *path){
+NBTErr NBT_writeToFile(const TagCompound *cpd,char *path){
 	char *bytes=NULL;
 	size_t size=0;
 	FILE *stream=open_memstream(&bytes,&size);
@@ -2367,16 +2367,12 @@ static void UUID_TO_NBT(long long uuid_in[2],TagCompound *cpd,...){//varargs are
     NBT_setCompoundLong(cpd,"UUIDLeast",uuid_in[1]);
 }
 static void UUID_FROM_NBT(long long uuid_in[2],TagCompound *cpd,...){
-    NBTTag *most=NBT_getCompoundIndex(cpd,"UUIDMost");
-    NBTTag *least=NBT_getCompoundIndex(cpd,"UUIDLeast");
+    NBTTag *most=NBT_getCompoundIndexNonCopy(cpd,"UUIDMost");
+    NBTTag *least=NBT_getCompoundIndexNonCopy(cpd,"UUIDLeast");
     if(NBT_LONG(most)&&NBT_LONG(least)){
         uuid_in[0]=((TagLong *)most)->l;
         uuid_in[1]=((TagLong *)least)->l;
     }
-    if(most)
-        NBT_destroy(most);
-    if(least)
-        NBT_destroy(least);
 }
 NBTBaseInterface *NBT_BASE_UUID=&((NBTBaseInterface){
     .nbtType=TAG_COMPOUND,

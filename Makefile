@@ -27,6 +27,8 @@ java-bin:${JAVA_SOURCE}
 	javac -d java-bin ${JAVA_SOURCE} --release 11
 nbtc.jar:java-bin
 	jar --create --file nbtc.jar --main-class nbtc.scaner.Main --module-version 1.0 -C java-bin .
+test:libnbtc.so c/test.c
+	gcc c/test.c -g -L . -lnbtc -o test&&LD_LIBRARY_PATH=. ./test
 .PHONY:clean install uninstall all
 clean:
 	-rm -rf libnbtc.so java-bin nbtc.jar

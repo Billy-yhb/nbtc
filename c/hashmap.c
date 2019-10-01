@@ -68,17 +68,21 @@ void HashMap_put(HashMap *map,const void *key,const void *val){
         }
     }
 }
-void *HashMap_get(HashMap *map,const void *key){
+void *HashMap_getNonCopy(HashMap *map,const void *key){
     int hash=map->key_hash(key)%256;
     Node *lt=map->arr[hash];
     while(lt&&(!map->key_equals(key,lt->key))){
         lt=lt->next;
     }
     if(lt){
-        return map->val_copy(lt->val);
+        return lt->val;
     }else{
         return NULL;
     }
+}
+void *HashMap_get(HashMap *map,const void *key){
+    void *rval=HashMap_getNonCopy(map,key);
+    return rval?map->val_copy(rval):NULL;
 }
 int HashMap_contains(HashMap *map,const void *key){
     int hash=map->key_hash(key)%256;
@@ -161,4 +165,32 @@ void HashMap_destroy(HashMap *map){
         }
     }
     free(map);
+}
+HashMapLoc HashMap_iterator(HashMap *map){
+    int i;
+    for(i=0;i<256;i++){
+        if(map->arr[i]){
+            break;
+        }
+    }
+    HashMapLoc rval={map,i,i<256,i<256?map->arr[i]:NULL};
+    return rval;
+}
+HashMapEntry HashMap_next(HashMapLoc *iterator){
+    Node *node=iterator->node;
+    HashMapEntry rval={node->key,node->val};
+    if(node->next){
+        iterator->node=node->next;
+    }else{
+        int i;
+        for(i=iterator->hash+1;i<256;i++){
+            if(((HashMap *)(iterator->map))->arr[i]){
+                break;
+            }
+        }
+        iterator->hash=i;
+        iterator->hasNext=i<256;
+        iterator->node=iterator->hasNext?((HashMap *)(iterator->map))->arr[i]:NULL;
+    }
+    return rval;
 }
